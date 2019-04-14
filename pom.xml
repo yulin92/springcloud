@@ -11,11 +11,33 @@
     <modules>
         <module>microcloud-api</module>
         <module>microcloud-provider-product</module>
+        <module>microcloud-provider-product2</module>
+        <module>microcloud-provider-product3</module>
         <module>microcloud-consumer</module>
+        <module>microcloud-consumer-ribbon</module>
+        <module>microcloud-consumer-feign</module>
         <module>microcloud-security</module>
         <module>microcloud-eureka</module>
         <module>microcloud-eureka2</module>
         <module>microcloud-eureka3</module>
+        <module>microcloud-service</module>
+        <module>microcloud-provider-product-hystrix</module>
+        <module>microcloud-consumer-hystrix-dashboard</module>
+        <module>microcloud-provider-user-hystrix</module>
+        <module>microcloud-consumer-turbine</module>
+        <module>microcloud-zuul-gateway</module>
+        <module>microcloud-config</module>
+        <module>microcloud-config2</module>
+        <module>microcloud-config3</module>
+        <module>microcloud-config-client</module>
+        <module>microcloud-config-eureka-client</module>
+        <module>microcloud-config-product-client</module>
+        <module>microcloud-ha-config-eureka</module>
+        <module>microcloud-config-bus</module>
+        <module>microcloud-config-bus-client</module>
+        <module>microcloud-stream-provider</module>
+        <module>microcloud-stream-consumer</module>
+        <module>microcloud-sleuth</module>
     </modules>
 
     <properties>
@@ -34,7 +56,7 @@
             <dependency> <!-- SpringCloud离不开SpringBoot，所以必须要配置此依赖包 -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.2.RELEASE</version>
+                <version>2.0.7.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -56,6 +78,11 @@
             <dependency>
                 <groupId>enjoy</groupId>
                 <artifactId>microcloud-security</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>enjoy</groupId>
+                <artifactId>microcloud-service</artifactId>
                 <version>1.0.0</version>
             </dependency>
         </dependencies>

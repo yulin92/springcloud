@@ -1,6 +1,8 @@
 package cn.enjoy.controller;
 
 import cn.enjoy.vo.Product;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,14 +16,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/consumer")
 public class ConsumerProductController {
-    public static final String PRODUCT_GET_URL = "http://localhost:8080/prodcut/get/";
-    public static final String PRODUCT_LIST_URL="http://localhost:8080/prodcut/list/";
-    public static final String PRODUCT_ADD_URL = "http://localhost:8080/prodcut/add/";
+    public static final String PRODUCT_GET_URL = "http://MICROCLOUD-PROVIDER-PRODUCT/prodcut/get/";
+    public static final String PRODUCT_LIST_URL="http://MICROCLOUD-PROVIDER-PRODUCT/prodcut/list/";
+    public static final String PRODUCT_ADD_URL = "http://MICROCLOUD-PROVIDER-PRODUCT/prodcut/add/";
     @Resource
     private RestTemplate restTemplate;
 
     @Resource
     private HttpHeaders httpHeaders;
+
+    @Resource
+    private LoadBalancerClient loadBalancerClient;
 
     @RequestMapping("/product/get")
     public Object getProduct(long id) {
@@ -31,6 +36,12 @@ public class ConsumerProductController {
 
     @RequestMapping("/product/list")
     public  Object listProduct() {
+        ServiceInstance serviceInstance = this.loadBalancerClient.choose("MICROCLOUD-PROVIDER-PRODUCT") ;
+        System.out.println(
+                "【*** ServiceInstance ***】host = " + serviceInstance.getHost()
+                        + "、port = " + serviceInstance.getPort()
+                        + "、serviceId = " + serviceInstance.getServiceId());
+
         List<Product> list = restTemplate.exchange(PRODUCT_LIST_URL,HttpMethod.GET,
                 new HttpEntity<Object>(httpHeaders), List.class).getBody();
         return  list;
